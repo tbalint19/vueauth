@@ -19,7 +19,7 @@ const handleSignup = async () => {
     <h1 class="card-title">Signup</h1>
     <div class="flex flex-col gap-4 py-4">
       <input class="input" placeholder="Email" type="text" v-model="email">
-      <input class="input" placeholder="Password" type="text" v-model="password">
+      <input class="input" placeholder="Password" type="password" v-model="password">
     </div>
     <div class="card-actions justify-end">
       <button class="btn btn-success" @click="handleSignup">Signup</button>
