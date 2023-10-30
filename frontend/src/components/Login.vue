@@ -11,8 +11,8 @@ const password = ref("")
 const handleLogin = async () => {
   const result = await login(email.value, password.value)
   if (result.success) {
-    feLogin()
     localStorage.setItem("sessionId", result.data.sessionId)
+    feLogin()
   }
   else
     alert(`Sikertelen Login (${result.status})`)

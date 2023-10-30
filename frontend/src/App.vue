@@ -2,15 +2,38 @@
 import Signup from "./components/Signup.vue"
 import Login from "./components/Login.vue"
 import Chat from "./components/Chat.vue"
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { jwtDecode } from "jwt-decode";
 
-const page = ref("signup")
+const page = ref("login")
 const isLoggedIn = ref(false)
+
+const loggedInUser = ref("")
+
+const logout = () => {
+  localStorage.removeItem("sessionId")
+  feLogout()
+}
+
+const feLogout = () => {
+  isLoggedIn.value = false
+  page.value = "login"
+  loggedInUser.value = ""
+}
 
 const feLogin = () => {
   isLoggedIn.value = true
   page.value = "chat"
+  const existingToken = localStorage.getItem("sessionId")
+  if (existingToken)
+  loggedInUser.value = (jwtDecode(existingToken) as any)?.email
 }
+
+onMounted(() => {
+  const existingToken = localStorage.getItem("sessionId")
+  if (existingToken)
+    feLogin()
+})
 </script>
 
 <template>
@@ -24,14 +47,14 @@ const feLogin = () => {
       <a class="btn btn-ghost normal-case text-xl">My app</a>
     </div>
     <div class="flex gap-4">
-      <button class="btn" @click="() => page = 'signup'">
+      <button v-if="!isLoggedIn" class="btn" @click="() => page = 'signup'">
         Signup
       </button>
-      <button class="btn" @click="() => page = 'login'">
+      <button v-if="!isLoggedIn" class="btn" @click="() => page = 'login'">
         Login
       </button>
-      <button v-if="isLoggedIn" class="btn" @click="() => page = 'chat'">
-        Chat
+      <button v-if="isLoggedIn" class="btn" @click="logout">
+        Logout
       </button>
     </div>
   </div>
@@ -39,7 +62,7 @@ const feLogin = () => {
   <main>
     <Signup v-if="page === 'signup'" />
     <Login v-if="page === 'login'" :feLogin="feLogin" />
-    <Chat v-if="page === 'chat' && isLoggedIn" />
+    <Chat v-if="page === 'chat' && isLoggedIn" :loggedInUser="loggedInUser" />
   </main>
 </template>
 

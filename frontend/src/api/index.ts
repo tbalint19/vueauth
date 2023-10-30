@@ -27,6 +27,8 @@ const MessageSchema = z.object({
   email: z.string()
 })
 
+export type Message = z.infer<typeof MessageSchema>
+
 export const getMessages = async () => {
   return request({
     method: "GET",
