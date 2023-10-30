@@ -3,8 +3,8 @@ import { writeFileSafe, readFileSafe } from "../util/filesystem";
 import { z } from "zod";
 import { hash, validate } from "../util/hash"
 
-const userDb = `${__dirname}/../database/users.json`
-const sessionDb = `${__dirname}/../database/sessions.json`
+const userDb = `${__dirname}/../../database/users.json`
+const sessionDb = `${__dirname}/../../database/sessions.json`
 
 const UserSchema = z.object({
   id: z.number(),

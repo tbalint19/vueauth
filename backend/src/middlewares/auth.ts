@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express"
 import { z } from "zod"
 import { readFileSafe } from "../util/filesystem"
 
-const sessionDb = `${__dirname}/../database/sessions.json`
-const userDb = `${__dirname}/../database/users.json`
+const sessionDb = `${__dirname}/../../database/sessions.json`
+const userDb = `${__dirname}/../../database/users.json`
 
 const HeaderSchema = z.object({
   authorization: z.string(),

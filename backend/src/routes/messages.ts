@@ -5,7 +5,7 @@ import { auth } from "../middlewares/auth";
 
 const router = express.Router()
 
-const messageDb = `${__dirname}/../database/messages.json`
+const messageDb = `${__dirname}/../../database/messages.json`
 
 const MessageSchema = z.object({
   id: z.number(),
